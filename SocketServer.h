@@ -3,6 +3,11 @@
 
 #include <WinSock2.h>
 
+typedef struct _KeyEventValue
+{
+	int SDLKValue;
+} KeyEventValue;
+
 class SocketServer
 {
 public:
@@ -11,6 +16,8 @@ public:
 
 	bool Init( void );
 	void Release( void );
+
+	SOCKET getSocket( void );
 
 private:
 	WSADATA m_WSA;

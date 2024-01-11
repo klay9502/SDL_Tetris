@@ -55,3 +55,8 @@ void SocketServer::Release( void )
 {
 	
 }
+
+SOCKET SocketServer::getSocket( void )
+{
+	return m_Sock;
+}

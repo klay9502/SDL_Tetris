@@ -65,6 +65,8 @@ bool SDLWindows::Init( unsigned int windowWidth, unsigned int windowHeight )
 void SDLWindows::Loop( void )
 {
     int quit = 0;
+	KeyEventValue keyEventBuf;
+
     while (!quit)
 	{
 		SDL_Event event;
@@ -81,6 +83,16 @@ void SDLWindows::Loop( void )
 				{
 				case SDLK_ESCAPE:
 					quit = 1;
+					break;
+				case SDLK_RIGHT:
+				case SDLK_LEFT:
+				case SDLK_UP:
+				case SDLK_DOWN:
+					keyEventBuf.SDLKValue = event.key.keysym.sym;
+					if( send( m_pSocketServer->getSocket(), ( char* )&keyEventBuf, sizeof( keyEventBuf ), 0 ) == SOCKET_ERROR )
+					{
+						fprintf( stderr, "ERROR::SDLWindows - send() Error. Code: %d\n", WSAGetLastError() );
+					}
 					break;
 				default:
 					break;
